@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Website pariwisata modern untuk menjelajahi destinasi terbaik dengan pengalaman nyaman dan personal." />
+  <title>Arya Travel — Jelajahi Indonesia dengan Lebih Hangat</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #07111c;
+      --surface: #0f1b2b;
+      --surface-2: #14253a;
+      --text: #f4f8fb;
+      --muted: #9db0c2;
+      --accent: #38bdf8;
+      --accent-2: #34d399;
+      --accent-3: #f59e0b;
+      --border: rgba(255,255,255,0.12);
+      --shadow: 0 18px 50px rgba(0,0,0,0.25);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #07111c 0%, #0d1b2a 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    .container {
+      width: min(1160px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(14px);
+      background: rgba(7, 17, 28, 0.78);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0;
+    }
+
+    .brand {
+      font-weight: 800;
+      font-size: 1.02rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 22px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-cta {
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+      color: white;
+      font-weight: 700;
+      box-shadow: 0 10px 20px rgba(52, 211, 153, 0.2);
+    }
+
+    .menu-toggle {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 10px;
+      padding: 8px 10px;
+      cursor: pointer;
+    }
+
+    .hero {
+      position: relative;
+      padding: 72px 0 40px;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, rgba(7,17,28,0.85), rgba(7,17,28,0.3)),
+                  url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=80') center/cover;
+      border-radius: 0 0 36px 36px;
+      z-index: -1;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+      align-items: center;
+      padding: 44px 0 38px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.87rem;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.14);
+      margin-bottom: 16px;
+      color: #d8f1ff;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      line-height: 1.08;
+      margin-bottom: 14px;
+      letter-spacing: -0.03em;
+    }
+
+    .lead {
+      font-size: 1rem;
+      color: #dfe8f1;
+      max-width: 620px;
+      margin-bottom: 24px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 26px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      font-weight: 700;
+      transition: transform .2s ease, box-shadow .2s ease;
+      cursor: pointer;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+      color: white;
+      box-shadow: 0 14px 30px rgba(52, 211, 153, 0.2);
+    }
+    .btn-secondary {
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.08);
+      color: white;
+    }
+
+    .hero-card {
+      background: rgba(10, 21, 34, 0.76);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card h3 {
+      font-size: 1.08rem;
+      margin-bottom: 14px;
+    }
+
+    .hero-card ul { list-style: none; display: grid; gap: 10px; color: #dfe8f1; }
+    .hero-card li { display: flex; align-items: center; gap: 10px; }
+    .hero-card li::before {
+      content: '✦';
+      color: var(--accent-2);
+      font-size: 0.9rem;
+    }
+
+    .section {
+      padding: 54px 0;
+    }
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+    }
+
+    .section-title h2 {
+      font-size: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .section-title p { color: var(--muted); }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .destination-card, .package-card, .testimonial-card, .feature-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.02) 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .destination-card img {
+      height: 180px;
+      object-fit: cover;
+      border-radius: 16px;
+      margin-bottom: 12px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      background: rgba(56, 189, 248, 0.16);
+      color: #99e4ff;
+      margin-bottom: 8px;
+    }
+
+    .destination-card h3, .package-card h3 { font-size: 1.06rem; margin-bottom: 8px; }
+    .muted { color: var(--muted); }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .feature-card .icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+      background: linear-gradient(135deg, rgba(56,189,248,0.19), rgba(52,211,153,0.16));
+    }
+
+    .package-card { display: flex; flex-direction: column; gap: 12px; }
+    .price {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #7ce7bb;
+    }
+
+    .package-list { display: grid; gap: 8px; color: var(--muted); }
+    .package-list span { display: flex; align-items: center; gap: 8px; }
+    .package-list span::before { content: '✓'; color: var(--accent-2); }
+
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .testimonial-card blockquote {
+      color: #dfe8f1;
+      margin-bottom: 14px;
+      font-style: italic;
+    }
+
+    .cta {
+      padding: 28px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(56,189,248,0.14), rgba(52,211,153,0.16));
+      border: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    footer {
+      padding: 28px 0 40px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .card-grid, .feature-grid, .testimonial-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 700px) {
+      .nav-links { display: none; }
+      .menu-toggle { display: inline-flex; }
+      .nav { gap: 12px; }
+      .card-grid, .feature-grid, .testimonial-grid { grid-template-columns: 1fr; }
+      .hero { padding-top: 40px; }
+      .hero-card { margin-top: 8px; }
+      .cta { padding: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container nav">
+      <a class="brand" href="#">Arya Travel</a>
+      <nav class="nav-links">
+        <a href="#destinasi">Destinasi</a>
+        <a href="#paket">Paket</a>
+        <a href="#testimoni">Cerita</a>
+        <a href="#kontak">Kontak</a>
+      </nav>
+      <a class="nav-cta" href="#kontak">Booking Sekarang</a>
+      <button class="menu-toggle" aria-label="Buka menu">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">✦ Perjalanan yang terasa personal, bukan sekadar wisata</div>
+          <h1>Jelajahi Indonesia dengan suasana yang lebih santai, lebih indah, dan lebih dekat dengan alam.</h1>
+          <p class="lead">Dari pantai yang tenang hingga pegunungan yang memukau, kami merancang perjalanan dengan detail yang rapi, transportasi nyaman, dan pemandu yang memahami kebutuhan Anda.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#paket">Lihat Paket</a>
+            <a class="btn btn-secondary" href="#destinasi">Eksplor Destinasi</a>
+          </div>
+          <div class="section-title" style="margin-bottom: 10px;">
+            <h2 style="font-size: 1.04rem;">Trip yang sering dipilih</h2>
+            <p>4.9/5 dari ribuan traveler</p>
+          </div>
+        </div>
+
+        <aside class="hero-card">
+          <h3>Kenapa traveler memilih kami</h3>
+          <ul>
+            <li>Itinerary yang fleksibel dan tidak terlalu padat</li>
+            <li>Penginapan dengan suasana nyaman dan strategis</li>
+            <li>Pemandu lokal yang siap membantu setiap langkah</li>
+            <li>Support 24 jam selama perjalanan</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="destinasi">
+      <div class="container">
+        <div class="section-title">
+          <h2>Destinasi yang paling dicari</h2>
+          <p>Dipilih untuk suasana, kuliner, dan pengalaman yang berkesan.</p>
+        </div>
+        <div class="card-grid">
+          <article class="destination-card">
+            <img src="https://images.unsplash.com/photo-1573790387438-4da905039392?auto=format&fit=crop&w=900&q=80" alt="Labuan Bajo" />
+            <span class="tag">Pantai & Sunset</span>
+            <h3>Labuan Bajo</h3>
+            <p class="muted">Menjelajah pulau-pulau cantik, snorkeling, dan suasana malam yang tenang di tepi laut.</p>
+          </article>
+          <article class="destination-card">
+            <img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=900&q=80" alt="Bromo" />
+            <span class="tag">Gunung & Sunrise</span>
+            <h3>Bromo</h3>
+            <p class="muted">Menyaksikan sunrise dari puncak yang dramatis dengan udara sejuk dan pemandangan luas.</p>
+          </article>
+          <article class="destination-card">
+            <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=900&q=80" alt="Ubud" />
+            <span class="tag">Budaya & Alam</span>
+            <h3>Ubud</h3>
+            <p class="muted">Ritme perjalanan yang lebih tenang dengan sawah, seni, spa, dan kuliner khas Bali.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-title">
+          <h2>Kenapa perjalanan terasa lebih nyaman bersama kami</h2>
+          <p>Detail yang rapi membuat pengalaman terasa jauh lebih mudah.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <div class="icon">🧭</div>
+            <h3>Rencana jelas</h3>
+            <p class="muted">Setiap hari sudah disusun dengan waktu yang cukup untuk menikmati momen.</p>
+          </article>
+          <article class="feature-card">
+            <div class="icon">🏨</div>
+            <h3>Penginapan nyaman</h3>
+            <p class="muted">Dipilih berdasarkan lokasi, kebersihan, dan suasana yang cocok untuk istirahat.</p>
+          </article>
+          <article class="feature-card">
+            <div class="icon">🍜</div>
+            <h3>Kuliner lokal</h3>
+            <p class="muted">Kami menambahkan rekomendasi makanan khas yang tidak biasa ditemukan di panduan umum.</p>
+          </article>
+          <article class="feature-card">
+            <div class="icon">📞</div>
+            <h3>Support yang siap</h3>
+            <p class="muted">Tim kami selalu siap membantu dari sebelum keberangkatan hingga kembali pulang.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="paket">
+      <div class="container">
+        <div class="section-title">
+          <h2>Paket yang paling banyak disukai</h2>
+          <p>Dirancang untuk perjalanan yang santai tapi tetap penuh momen.</p>
+        </div>
+        <div class="card-grid">
+          <article class="package-card">
+            <span class="tag">3 hari 2 malam</span>
+            <h3>Paket Coastal Escape</h3>
+            <p class="muted">Cocok untuk Anda yang ingin menikmati pantai, kuliner, dan suasana santai tanpa terlalu padat.</p>
+            <div class="price">Rp 2.450.000</div>
+            <div class="package-list">
+              <span>Transfer dengan mobil nyaman</span>
+              <span>Hotel bintang 3 dengan breakfast</span>
+              <span>Guided city walk dan sunset point</span>
+            </div>
+          </article>
+          <article class="package-card">
+            <span class="tag">5 hari 4 malam</span>
+            <h3>Paket Highlands Adventure</h3>
+            <p class="muted">Menawarkan suasana alam, sunrise, dan beberapa spot foto terbaik untuk liburan yang tak terlupakan.</p>
+            <div class="price">Rp 4.100.000</div>
+            <div class="package-list">
+              <span>Transportasi antar kota lengkap</span>
+              <span>Penginapan nyaman dekat lokasi wisata</span>
+              <span>Tour guide lokal dan dokumentasi singkat</span>
+            </div>
+          </article>
+          <article class="package-card">
+            <span class="tag">7 hari 6 malam</span>
+            <h3>Paket Island Delight</h3>
+            <p class="muted">Pilihan ideal untuk Anda yang ingin menjelajahi beberapa destinasi dengan nuansa lebih santai dan eksotis.</p>
+            <div class="price">Rp 6.800.000</div>
+            <div class="package-list">
+              <span>Ferry dan transportasi antar destinasi</span>
+              <span>Penginapan premium pilihan</span>
+              <span>Rencana harian yang fleksibel</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="testimoni">
+      <div class="container">
+        <div class="section-title">
+          <h2>Apa yang traveler rasakan</h2>
+          <p>Ulasan yang sederhana, jujur, dan terasa dekat dengan pengalaman nyata.</p>
+        </div>
+        <div class="testimonial-grid">
+          <article class="testimonial-card">
+            <blockquote>“Detail perjalanan sangat rapi, kami tidak merasa terburu-buru dan semua spot terasa masuk akal.”</blockquote>
+            <strong>— Nanda & Rizki</strong>
+          </article>
+          <article class="testimonial-card">
+            <blockquote>“Pemandu yang ramah, penginapan nyaman, dan suasana yang sangat cocok untuk liburan santai.”</blockquote>
+            <strong>— Arin</strong>
+          </article>
+          <article class="testimonial-card">
+            <blockquote>“Paketnya terasa pribadi, bukan seperti tour massal. Kami bisa menikmati suasana dengan lebih tenang.”</blockquote>
+            <strong>— Dimas</strong>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="kontak">
+      <div class="container">
+        <div class="cta">
+          <div>
+            <div class="eyebrow" style="margin-bottom: 10px;">Siap untuk perjalanan berikutnya?</div>
+            <h2 style="font-size: 1.35rem; margin-bottom: 6px;">Mari susun itinerary yang cocok untuk Anda.</h2>
+            <p class="muted">Kirimkan tanggal dan preferensi Anda, kami akan bantu menyiapkan perjalanan yang lebih nyaman.</p>
+          </div>
+          <a class="btn btn-primary" href="mailto:hello@rimbatravel.com">Hubungi Kami</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container" style="display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;">
+      <span>© <span id="year"></span> Arya Travel. Semua hak dilindungi.</span>
+      <span>Travel with calm, comfort, and a little wonder.</span>
+    </div>
+  </footer>
+
+  <script>
+    const year = document.getElementById('year');
+    if (year) year.textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
